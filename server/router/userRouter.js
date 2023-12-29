@@ -10,5 +10,7 @@ const setAccessControl=(access_type)=>{
     }
 }
 router.post('/adduser',setAccessControl('*'),userControler.newUser);
+router.post('/addproduct',setAccessControl('1'),userControler.newProduct);
+
 
 module.exports=router

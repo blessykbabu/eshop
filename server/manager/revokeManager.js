@@ -1,4 +1,4 @@
-const accessControl = require('../db/models/revoked_token');
+const accessControl = require('../db/models/revoked_tokens');
 
 exports.revoke = async function (token) {
     return new Promise(async (resolve, reject) => {

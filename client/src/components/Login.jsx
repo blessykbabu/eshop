@@ -1,6 +1,7 @@
 
+
 import React from "react";
-import "./Login.css"
+import "./login.css"
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string, number } from "yup";
@@ -10,8 +11,11 @@ import {  useNavigate } from "react-router-dom";
 // import ErrorComponent from "./ErrorComponent";
 // import Loading from "./Loading";
 
-export default function Login() {
- 
+export default function AdminLogin() {
+  const [serverSuccess, setServerSuccess] = useState("");
+  const [serverError, setServeError] = useState("");
+  const [validationMsg, setvalidationMsg] = useState("");
+  const [backendError, setbackendError] = useState({});
   const navigate = useNavigate();
   const initialValues = {
     email: "",
@@ -23,10 +27,7 @@ export default function Login() {
     try {
       console.log("values::",values)
       const response = await axios.post(`http://localhost:3000/login`,values);
-// console.log("requset post or not");
       console.log("Login:", response.data);
-      // localStorage.setItem("token", response.token);
-      // location.href = "http://localhost:3000/employee";
       
       if (response.data.error) {
         setbackendError(response.data.error);
@@ -41,12 +42,11 @@ export default function Login() {
         localStorage.setItem('token',token);
         console.log("token:",token);
 
-      // Check the role and redirect accordingly
       if (response.data.usertype=== 'admin') {
         navigate('/admin/dashboard')
 
-      } else if (response.data.usertype === 'employee') {
-        navigate('/employee/dashboard')
+      } else if (response.data.usertype === 'buyer') {
+        navigate('/user')
 
       } else {
         console.error("Unknown user:", response.data.usertype);
@@ -70,7 +70,7 @@ export default function Login() {
           
            
             <div className="lgfrm">
-              <div className="container mx-auto col-sm-12 col-md-12 col-lg-5 justify-content-center">
+              <div className="mx-auto col-sm-12 col-md-12 col-lg-5 justify-content-center lg-container">
                 <Formik
                   initialValues={initialValues}
                   onSubmit={handleSubmit}
@@ -79,7 +79,6 @@ export default function Login() {
                     email: string().email().required("Required"),
                     password: string()
                 .required("Required")
-                .min(6, "Password is too short - should be 6 chars minimum"),
 
                  
                   })}
@@ -95,7 +94,7 @@ export default function Login() {
                   }) => (
                     <Form>
                       <div
-                        className="shadow-lg bg-body rounded"
+                        className="shadow-lg bg-body rounded log-bg"
                         style={{ backgroundColor: "white", opacity: 0.75 }}
                       >
                       

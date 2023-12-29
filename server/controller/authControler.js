@@ -1,5 +1,4 @@
 const users=require('../db/models/users.js');
-const usertypes=require('../db/models/usertypes.js');
 const successFunction = require("../utils/response-handler.js").successFunction;
 const errorFunction = require("../utils/response-handler.js").errorFunction;
 const bcrypt=require('bcrypt')

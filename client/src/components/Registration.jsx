@@ -4,9 +4,12 @@
 import React from "react";
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import {Link} from 'react-router-dom';
 import { object, string, number } from "yup";
 import axios from "axios";
 import Loading from "./Loading";
+import './reg.css';
+import img1 from '../image/22.webp'
 import ErrorComponent from "../components/ErrorComponent";
 import SuccessComponent from "../components/SuccessComponent";
 export default function Registration() {
@@ -20,7 +23,6 @@ export default function Registration() {
     email: "",
     phone: "",
     district: "",
-    category: "",
     password:""
     
   };
@@ -51,11 +53,11 @@ export default function Registration() {
     } catch (error) {
       console.error("Not Submitted", error);
       setServeError(true);
-      console.log("response.data.errors", response.data.errors);
+      // console.log("response.data.errors::",response.data.errors);
     } finally {
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 200);
     }
   };
 
@@ -67,10 +69,20 @@ export default function Registration() {
         ) : (
           <div>
             <h3 style={{ textAlign: "center", padding: 20, color: "gray" }}>
-              SignUp
+              Create Account
             </h3>
+            
             <div className="regfrm">
-              <div className="container mx-auto col-sm-12 col-md-12 col-lg-5">
+            <div className="image-reg">
+            <img
+                src={img1}
+                height={"635px"}
+                width={"400px"}
+                // className="d-block w-100"
+                alt="..."
+              />
+              </div>
+              <div className="col-sm-12 col-md-12 col-lg-3 rr">
                 <Formik
                   initialValues={initialValues}
                   onSubmit={handleSubmit}
@@ -93,7 +105,6 @@ export default function Registration() {
                       .required("Required"),
                     district: string().required("Required"),
 
-                    category: string().required("Required"),
                     password: string().required("Required"),
                   })}
                 >
@@ -113,9 +124,9 @@ export default function Registration() {
                       >
                         <div
                           className="mb-3 "
-                          style={{ padding: 20, color: "red" }}
+                          style={{ padding: 10, color: "red" }}
                         >
-                          *
+                          
                           <label
                             htmlFor="name"
                             className="form-label"
@@ -142,9 +153,9 @@ export default function Registration() {
                         </div>
                         <div
                           className="mb-3 "
-                          style={{ padding: 20, color: "red" }}
+                          style={{ padding: 10, color: "red" }}
                         >
-                          *
+                          
                           <label
                             htmlFor="email"
                             className="form-label"
@@ -179,9 +190,9 @@ export default function Registration() {
                         </div>
                         <div
                           className="mb-3"
-                          style={{ padding: 20, color: "red" }}
+                          style={{ padding: 10, color: "red" }}
                         >
-                          *
+                          
                           <label
                             htmlFor="phone"
                             className="form-label"
@@ -208,9 +219,9 @@ export default function Registration() {
 
                         <div
                           className="mb-3"
-                          style={{ padding: 20, color: "red" }}
+                          style={{ padding: 10, color: "red" }}
                         >
-                          *
+                          
                           <label
                             htmlFor="district"
                             className="form-label"
@@ -235,11 +246,11 @@ export default function Registration() {
                           
                         </div>
 
-                        <div
+                        {/* <div
                           className="mb-3"
-                          style={{ padding: 20, color: "red" }}
+                          style={{ padding: 10, color: "red" }}
                         >
-                          *
+                          
                           <label
                             htmlFor="category"
                             className="form-label"
@@ -262,12 +273,12 @@ export default function Registration() {
                           )}
                           </label>
                          
-                        </div>
+                        </div> */}
                         <div
                           className="mb-3"
-                          style={{ padding: 20, color: "red" }}
+                          style={{ padding: 10, color: "red" }}
                         >
-                          *
+                          
                           <label
                             htmlFor="password"
                             className="form-label"
@@ -291,19 +302,25 @@ export default function Registration() {
                           </label>
                          
                         </div>
-
-                        <button className="btn btn-success m-3" type="submit">
-                          Submit
+                        <p>Already have an Account? <Link to='/login' style={{textDecoration:"none"}}><span style={{color:"orange"}}> Login Now!</span></Link></p>
+                        {/* <Link to='/login'> */}
+                          <button className="btn btn-success m-3" type="submit">
+                          Create
                         </button>
+                        {/* </Link> */}
                       </div>
                     </Form>
                   )}
                 </Formik>
               </div>
+             
             </div>
+            
+              
             {serverSuccess && (
         <SuccessComponent
           message={validationMsg}
+        
           onClose={() => setServerSuccess(false)}
         />
       )}

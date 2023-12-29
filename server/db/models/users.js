@@ -19,16 +19,14 @@ const users = new mongoose.Schema(
     district: {
       type: String,
     },
-
-    category: {
-      type: String,
-    },
-
    
     password: {
       type: String
     },
- 
+    usertype: { 
+      type: mongoose.Schema.Types.ObjectId,
+       ref: "usertypes"
+       },
     deleted: {
       type: Boolean,
       default: false,

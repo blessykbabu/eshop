@@ -18,7 +18,6 @@ data.district=!isEmpty(data.district)?data.district:"";
 
 
 
-data.category=!isEmpty(data.category)?data.category:"";
 
 data.password=!isEmpty(data.password)?data.password:"";
 
@@ -78,9 +77,7 @@ if(validator.isEmpty(data.district)){
 
 
 
-if(validator.isEmpty(data.category)){
-    errors.category_empty="category is  required"
-}
+
 
 
 if(validator.isEmpty(data.password)){

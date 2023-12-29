@@ -1,5 +1,7 @@
 const users = require("../db/models/users.js");
-
+const usertypes=require('../db/models/usertypes.js');
+const products=require('../db/models/products.js');
+const bcrypt=require('bcrypt');
 const {
   successFunction,
   errorFunction,
@@ -14,13 +16,16 @@ const { sign } = jwt;
 
 async function newUser(req, res) {
   try {
-    let { name, email, phone, district,category } = req.body;
+    let { name, email, phone, district,password } = req.body;
     let validationResult = await Regvalidator(req.body);
     console.log("valiadtionResult::", validationResult);
     if (validationResult.isValid) {
+      let hashedPass = await bcrypt.hash(password, 10);
+
       let userExist = await users.findOne({
         $and: [{ email: email }, { deleted: { $ne: true } }],
       });
+      
       if (userExist) {
         let response = errorFunction({
           statusCode: 401,
@@ -34,8 +39,8 @@ async function newUser(req, res) {
         email,
         phone,
         district,
-        category,
-        password,
+        usertype:"6582ce130a0dd1bc7fe48dad",
+        password:hashedPass,
       });
       if (result) {
         let response = successFunction({
@@ -69,6 +74,57 @@ async function newUser(req, res) {
   }
 }
 
+
+async function newProduct(req, res) {
+  try {
+    let { name, category,price, quantity,pimage } = req.body;
+    let validationResult = await Productvalidator(req.body);
+    console.log("valiadtionResult::", validationResult);
+    if (validationResult.isValid) {
+
+      
+    
+     
+      let result = await products.create({
+        name,
+        category,
+        price,
+        quantity,
+        pimage,
+      });
+      if (result) {
+        let response = successFunction({
+          statusCode: 200,
+          data: result,
+          message: "Product add successful",
+        });
+        return res.status(200).send(response);
+      } else {
+        let response = errorFunction({
+          statusCode: 400,
+          message: " Failed",
+        });
+        return res.status(400).send(response);
+      }
+    } else {
+      let response = errorFunction({
+        statusCode: 500,
+        message: "validation failed",
+      });
+      response.error = validationResult.errors;
+      return res.status(200).send(response);
+    }
+  } catch (error) {
+    console.log(error);
+    let response = errorFunction({
+      statusCode: 500,
+      message: "Error",
+    });
+    return res.status(500).send(response);
+  }
+}
+
 module.exports={
-newUser
+newUser,
+newProduct
 }
