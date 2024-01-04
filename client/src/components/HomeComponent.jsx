@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
-import "./home.css";
+import "./Home.css";
 import shoes from "../image/1.jpg";
 import shoes1 from "../image/2.jpg";
 import cloth from "../image/3.jpg";
@@ -83,7 +83,7 @@ export default function HomeComponent() {
                 </ul>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active">Disabled</Link>
+                <Link className="nav-link active">shop</Link>
               </li>
             </ul>
             <form className="d-flex" role="search">
@@ -98,7 +98,7 @@ export default function HomeComponent() {
         </button> */}
             </form>
             <ul className="navbar-nav m-2 mb-2 mb-lg-0">
-              <li className="nav-item m-2">
+              {/* <li className="nav-item m-2">
                 <Link  to ='/registration' style={{ textDecoration: "none", color: "black" }}>
                   {" "}
                   SigUp
@@ -109,7 +109,41 @@ export default function HomeComponent() {
                   {" "}
                   SigIn
                 </Link>
+              </li> */}
+
+
+
+
+              <li className="nav-item dropdown">
+                <Link
+                  className="nav-link dropdown-toggle active"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Welcome
+                </Link>
+                <ul className="dropdown-menu">
+                  <li>
+                  <Link  to ='/registration' style={{ textDecoration: "none", color: "black" }}>
+                  {" "}
+                  SigUp
+                </Link>
+                  </li>
+                  <li>
+                  <Link to='/login'style={{ textDecoration: "none", color: "black" }}>
+                  {" "}
+                  SigIn
+                </Link>
+                  </li>
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+                 
+                </ul>
               </li>
+
+
             </ul>
           </div>
         </div>

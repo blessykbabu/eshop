@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
-import "./home.css";
+import "./Home.css";
 import shoes from "../image/1.jpg";
 import shoes1 from "../image/2.jpg";
 import cloth from "../image/3.jpg";
@@ -9,9 +9,8 @@ import cr1 from "../image/5.jpg";
 import cr2 from "../image/6.jpg";
 import cr4 from "../image/10.jpg"
 import cr5 from '../image/13.jpg'
-import cr6 from '../image/14.jpg'
 
-export default function UserComponent() {
+function UserComponent() {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -289,3 +288,4 @@ export default function UserComponent() {
     </>
   );
 }
+export default UserComponent;

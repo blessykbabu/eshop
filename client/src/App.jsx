@@ -1,17 +1,15 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+// import { useState } from "react";
+// import reactLogo from "./assets/react.svg";
+// import viteLogo from "/vite.svg";
 import {
   BrowserRouter as Router,
-  Link,
   Routes,
   Route,
-  useNavigate,
 } from "react-router-dom";
 import HomeComponent from "./components/HomeComponent";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
-import UserComponent from "./components/userComponent";
+import UserComponent from "./components/UserComponent";
 import Admin from "./components/Admin";
 import NewProduct from "./components/NewProduct";
 
@@ -26,7 +24,7 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/dashboard" element={<Admin />} />
-          <Route path="/user" element={<UserComponent />} />
+          <Route path="/user" element={<UserComponent/>} />
           <Route path="/new/product" element={<NewProduct/>} />
 
           
