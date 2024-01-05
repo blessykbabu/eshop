@@ -12,6 +12,8 @@ import './reg.css';
 import img1 from '../image/22.webp'
 import ErrorComponent from "../components/ErrorComponent";
 import SuccessComponent from "../components/SuccessComponent";
+import google from "../image/google.png";
+import facebook from "../image/facebook.png";
 export default function Registration() {
   const [serverSuccess, setServerSuccess] = useState("");
   const [serverError, setServeError] = useState("");
@@ -63,17 +65,18 @@ export default function Registration() {
 
   return (
     <>
+    
       <div>
         {loading ? (
           <Loading />
         ) : (
           <div>
             <h3 style={{ textAlign: "center", padding: 20, color: "gray" }}>
-              Create Account
+              Create Your Account
             </h3>
             
             <div className="regfrm">
-            <div className="image-reg">
+            {/* <div className="image-reg">
             <img
                 src={img1}
                 height={"635px"}
@@ -81,7 +84,7 @@ export default function Registration() {
                 // className="d-block w-100"
                 alt="..."
               />
-              </div>
+              </div> */}
               <div className="col-sm-12 col-md-12 col-lg-3 rr">
                 <Formik
                   initialValues={initialValues}
@@ -304,16 +307,34 @@ export default function Registration() {
                         </div>
                         <p>Already have an Account? <Link to='/login' style={{textDecoration:"none"}}><span style={{color:"orange"}}> Login Now!</span></Link></p>
                         {/* <Link to='/login'> */}
-                          <button className="btn btn-success m-3" type="submit">
+                          <button className="btn btn-primary m-3" type="submit">
                           Create
                         </button>
                         {/* </Link> */}
+                        <div className="d-flex m-5">
+                          SignIn With
+                          <img
+                    src={google}
+                    height={30}
+                    className="d-block ms-3 mb-3 me-3"
+                    alt="..."
+                  />
+                  SignIn With
+                       <img
+                    src={facebook}
+                    height={30}
+                    className="d-block ms-2"
+                    alt="..."
+                  />
+                  </div>
                       </div>
+                    
                     </Form>
                   )}
                 </Formik>
+              
               </div>
-             
+            
             </div>
             
               

@@ -93,6 +93,7 @@ export default function AdminLogin() {
                     isSubmitting,
                   }) => (
                     <Form>
+                      <h4  className="m-3" style={{textAlign:"center"}}>SignIn</h4>
                       <div
                         className="shadow-lg bg-body rounded log-bg"
                         style={{ backgroundColor: "white", opacity: 0.75 }}
@@ -162,7 +163,7 @@ export default function AdminLogin() {
                        </div>
                        
                        <div className="text-center">
-                        <button className="btn btn-success m-3" type="submit">
+                        <button className="btn btn-primary m-3" type="submit">
                           Login
                         </button>
                         </div>

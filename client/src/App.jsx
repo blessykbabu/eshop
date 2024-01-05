@@ -1,17 +1,15 @@
 // import { useState } from "react";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 import HomeComponent from "./components/HomeComponent";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import UserComponent from "./components/UserComponent";
 import Admin from "./components/Admin";
 import NewProduct from "./components/NewProduct";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -19,6 +17,7 @@ function App() {
   return (
     <>
       <Router>
+        <Navbar/>
         <Routes>
           <Route path="/" element={<HomeComponent />} />
           <Route path="/registration" element={<Registration />} />
@@ -29,7 +28,28 @@ function App() {
 
           
         </Routes>
+        <Footer/>
       </Router>
+      
+      {/* <Router>
+      <div>
+        <Navbar/>
+        <Switch>
+          <Route path="/" exact component={HomeComponent} />
+          <Route path="/registration" component= {Registration}/>
+          <Route path="/login" component= {Login}/>
+          <Route path="/admin/dashboard" component= {Admin}/>
+          <Route path="/user" component= {UserComponent/>}/>
+          <Route path="/new/product" component= {<NewProduct/>}/>
+
+
+
+
+        </Switch>
+        <Footer/>
+      </div>
+    </Router> */}
+    
     </>
   );
 }

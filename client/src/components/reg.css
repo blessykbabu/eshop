@@ -6,12 +6,12 @@
     /* background-image: url("../image/25.jpeg");
     background-size: cover;
     background-repeat: no-repeat; */
-    border: 3px solid gray;
+    /* border: 3px solid gray;
     border-left: none;
-    border-radius: 10px;
-    background-image: url('../image//bg.jpg');
+    border-radius: 10px; */
+    /* background-image: url('../image//bg.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
   }
   /* .container {
     width: 80%; 
@@ -23,9 +23,9 @@
     /* border: 2px solid green; */
     /* background-image: url('../image/22.webp'); */
   }
-  .image-reg{
+  /* .image-reg{
     border: 3px solid gray;
     border-right: none;
     border-radius: 10px;
 
-  }
+  } */

@@ -60,14 +60,15 @@
   font-size: 2.5em;
   margin: 0;
   padding: 0.3em;
-  color: #fff;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  color:rgb(134, 178, 193);
+  font-family:"Georgia, 'Times New Roman', Times, serif";
+  /* box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); */
   animation-duration: 6s;
   animation-iteration-count: infinite;
   opacity: 0;
 }
 .rotating-text-wrapper h2:nth-child(1) {
-  background-color: lightseagreen;
+  /* background-color: rgb(46, 200, 217); */
   animation-name: rotating-text-1;
 }
 @keyframes rotating-text-1 {
@@ -83,7 +84,7 @@
   }
 }
 .rotating-text-wrapper h2:nth-child(2) {
-  background-color: rgb(83, 71, 255);
+  /* background-color: rgb(83, 71, 255); */
   animation-name: rotating-text-2;
 }
 @keyframes rotating-text-2 {
@@ -100,7 +101,7 @@
   }
 }
 .rotating-text-wrapper h2:nth-child(3) {
-  background-color: rgb(55, 78, 121);
+  /* background-color: rgb(55, 78, 121); */
   animation-name: rotating-text-3;
 }
 @keyframes rotating-text-3 {
@@ -137,7 +138,7 @@ margin:10px;
   width:200px;
 }
 .add{
-  background-color: cornflowerblue;
+  /* background-color: cornflowerblue; */
   color: white;
   padding:10px;
   border:0px;
