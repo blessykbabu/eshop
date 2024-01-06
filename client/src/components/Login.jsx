@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string, number } from "yup";
 import axios from "axios";
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate,Link } from "react-router-dom";
 // import SuccessComponent from "./SuccessComponent";
 // import ErrorComponent from "./ErrorComponent";
 // import Loading from "./Loading";
@@ -48,7 +48,11 @@ export default function AdminLogin() {
       } else if (response.data.usertype === 'buyer') {
         navigate('/user')
 
-      } else {
+      }else if (response.data.usertype === 'seller') {
+        navigate('/seller')
+
+      }
+       else {
         console.error("Unknown user:", response.data.usertype);
       }
 
@@ -93,7 +97,7 @@ export default function AdminLogin() {
                     isSubmitting,
                   }) => (
                     <Form>
-                      <h4  className="m-3" style={{textAlign:"center"}}>SignIn</h4>
+                      <h4  className="m-3" style={{textAlign:"center",color:"gray"}}>Sign In</h4>
                       <div
                         className="shadow-lg bg-body rounded log-bg"
                         style={{ backgroundColor: "white", opacity: 0.75 }}
@@ -161,12 +165,16 @@ export default function AdminLogin() {
                            <div>{backendError.name_empty}</div>
                          )}
                        </div>
-                       
+              
                        <div className="text-center">
+                       <p>
+        <Link  style={{textDecoration:"none",color:"green"}}   to="/forgot-password">Forgot Password?</Link>
+      </p>
                         <button className="btn btn-primary m-3" type="submit">
                           Login
                         </button>
                         </div>
+       
                       </div>
                     </Form>
                   )}

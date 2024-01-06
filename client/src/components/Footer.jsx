@@ -15,7 +15,7 @@ export default function Footer(){
               </ul>
             </div>
             <div className="col border-end">
-            <h5>LINKS</h5>
+            <h5 className="ms-4">LINKS</h5>
               <ul style={{listStyle:"none"}}>
                 <li >Contact Us</li>
                 <li>Sell with us</li>

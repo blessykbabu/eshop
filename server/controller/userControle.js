@@ -16,7 +16,7 @@ const { sign } = jwt;
 
 async function newUser(req, res) {
   try {
-    let { name, email, phone, district,password } = req.body;
+    let { name, email, phone, district,category,password } = req.body;
     let validationResult = await Regvalidator(req.body);
     console.log("valiadtionResult::", validationResult);
     if (validationResult.isValid) {
@@ -33,13 +33,19 @@ async function newUser(req, res) {
         });
         return res.status(401).send(response);
       }
-     
+     if(category == "Buyer"){
+       var usertype="6582ce130a0dd1bc7fe48dad"
+     }
+     else{
+      var usertype="6598dd77f3261b14b25ff389"
+     }
       let result = await users.create({
         name,
         email,
         phone,
         district,
-        usertype:"6582ce130a0dd1bc7fe48dad",
+        category,
+        usertype:usertype,
         password:hashedPass,
       });
       if (result) {

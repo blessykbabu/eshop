@@ -5,7 +5,7 @@ export default function Navbar(){
     return(
         <>
 
- <nav className="navbar navbar-expand-lg bg-dark">
+ <nav className="navbar navbar-expand-lg" style={{backgroundColor:"lightblue"}}>
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -21,7 +21,7 @@ export default function Navbar(){
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item m-4" style={{ color: "white" }}>
-                Free Shipping
+               Free Shipping
               </li>
               <li className="nav-item m-4" style={{ color: "white" }}>
                 call us 7898-4444-800
@@ -161,7 +161,7 @@ export default function Navbar(){
           </div>
           <div>
           <ul style={{listStyle:"none"}}>
-            <li><Link style={{textDecoration:"none",color:"black"}}>Shop
+            <li><Link to="/shop" style={{textDecoration:"none",color:"black"}}>Shop
             </Link>
             </li>
           </ul>
@@ -178,10 +178,10 @@ export default function Navbar(){
             </button>
             <ul className="dropdown-menu">
               <li>
-                <Link to="/registration" className="dropdown-item">SignUp</Link>
+                <Link to="/registration" className="dropdown-item">Sign Up</Link>
               </li>
               <li>
-                <Link  to="/login" className="dropdown-item">SignIn</Link>
+                <Link  to="/login" className="dropdown-item">Sign In</Link>
               </li>
              
             </ul>

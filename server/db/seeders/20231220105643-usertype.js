@@ -20,6 +20,10 @@ module.exports = {
             _id:"6582ce130a0dd1bc7fe48dae",
             usertype:'admin'
           },
+          {
+            _id:"6598dd77f3261b14b25ff389",
+            usertype:'seller'
+          }
         ]);
         console.log(inserted.length + ' documents inserted');
       } else {

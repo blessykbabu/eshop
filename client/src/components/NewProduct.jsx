@@ -25,13 +25,22 @@ export default function NewProduct() {
     
   };
 
-  const handleSubmit = async (values, { setErrors, resetForm }) => {
+  const handleSubmit = async (values, { setErrors, resetForm ,setFieldValue}) => {
     try {
       const token = localStorage.getItem("token");
+      const imageFile = values.pimage; // Assuming values.pimage is a File object
+      const imageBase64 = await convertFileToBase64(imageFile);
+      
       const response = await axios.post(
-        "http://localhost:3000/addproduct",
+        "http://localhost:3000/addproduct",{
         values,
-     
+        pimage:imageBase64,
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       console.log("data Submitted", response.data);
@@ -58,7 +67,20 @@ export default function NewProduct() {
       }, 200);
     }
   };
-
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      if (!(file instanceof Blob)) {
+        reject(new Error('Invalid file type. Expected a Blob.'));
+        return;
+      }
+  
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
+  
   return (
     <>
       <div>
@@ -236,9 +258,13 @@ export default function NewProduct() {
                             id="pimage"
                             name="pimage"
                             className="form-control"
+                            onChange={(e) => {
+                              const file = e.target.files[0];
+                              setFieldValue('pimage', file);
+                            }}
                           />
                           <ErrorMessage
-                            name="password"
+                            name="pimage"
                             component="div"
                             style={{ color: "red" }}
                           />

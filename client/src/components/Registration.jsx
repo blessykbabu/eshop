@@ -25,6 +25,7 @@ export default function Registration() {
     email: "",
     phone: "",
     district: "",
+    category:"",
     password:""
     
   };
@@ -249,7 +250,7 @@ export default function Registration() {
                           
                         </div>
 
-                        {/* <div
+                        <div
                           className="mb-3"
                           style={{ padding: 10, color: "red" }}
                         >
@@ -259,7 +260,7 @@ export default function Registration() {
                             className="form-label"
                             style={{ color: "black" }}
                           >
-                            Category
+                            I am a Seller/Buyer
                             <Field
                             type="text"
                             id="category"
@@ -276,7 +277,7 @@ export default function Registration() {
                           )}
                           </label>
                          
-                        </div> */}
+                        </div>
                         <div
                           className="mb-3"
                           style={{ padding: 10, color: "red" }}

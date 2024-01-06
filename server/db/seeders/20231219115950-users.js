@@ -18,6 +18,7 @@ module.exports = {
               email:"blessy@gmail.com",
               phone:"7902301544",
               district:"pathanamthitta",
+              category:"admin",
               password:"$2a$10$z./5Y9gMxNnqETFOG8VCW.8aEYnC9UzNcp4w1hqZ1J5FkEzsvbBga",  //Admin@123
               usertype:"6582ce130a0dd1bc7fe48dae"
           },

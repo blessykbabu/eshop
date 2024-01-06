@@ -10,6 +10,10 @@ import Admin from "./components/Admin";
 import NewProduct from "./components/NewProduct";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+// import ResetPassword from './components/ResetPassword';
+import Seller from './components/Selller';
+import { Logout } from './components/Logout';
+import Products from './components/Product';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -22,9 +26,18 @@ function App() {
           <Route path="/" element={<HomeComponent />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin/dashboard" element={<Admin />} />
-          <Route path="/user" element={<UserComponent/>} />
-          <Route path="/new/product" element={<NewProduct/>} />
+          <Route path="/logout" element={<Logout/>}/>
+
+          <Route path="/admin/dashboard/*" element={<Admin />} />
+          <Route path="/user/*" element={<UserComponent/>} />
+          <Route path="/seller/*" element={<Seller/>} />
+
+          <Route path="/add/product" element={<NewProduct/>} />
+          <Route path="/shop" element={<Products/>} />
+
+
+          {/* <Route path="/forgot/password" element={<ResetPassword/>} /> */}
+
 
           
         </Routes>

@@ -19,7 +19,9 @@ const users = new mongoose.Schema(
     district: {
       type: String,
     },
-   
+   category:{
+    type: String
+   },
     password: {
       type: String
     },
