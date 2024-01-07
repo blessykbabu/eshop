@@ -1,4 +1,6 @@
 import React from "react";
+import facebook from "../image/facebook.png";
+import insta from "../image/insta.png";
 export default function Footer(){
     return(
         <>
@@ -47,6 +49,15 @@ export default function Footer(){
 </form>
 
             </div>
+          </div>
+          <div className="container text-center m-5"> 
+           <h6>@ 2024 EZY MART</h6>
+           <div className="footer-image ">
+            <img className="m-3" src={insta} height={20}/>
+            <img src={facebook} height={20}/>
+
+
+           </div>
           </div>
         </footer>
       </div>

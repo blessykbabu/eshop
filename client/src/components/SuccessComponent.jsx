@@ -42,11 +42,10 @@ return(
       {/* Congratulations, your account has been successfully created. */}
       {message}
     </p>
-    <Link to='/login'>
+    
    < button id="contBtn"style={{border:0}} onClick={onClose} >OK
     </button>
-</Link>
-     
+
   </div>
 </div>
 </>

@@ -3,10 +3,13 @@
 const jwt = require("jsonwebtoken");
 const authControle = require("../controller/authControler");
 const errorFunction = require("./response-handler").errorFunction;
+const control_data=require("../utils/control-data.json");
+const user_types=require("../db/models/usertypes");
 const users = require("../db/models/users");
 exports.accessControl = async function (access_types, req, res, next) {
   try {
     //middleware to check JWT
+    
     if (access_types == "*") {
       next();
     } else {

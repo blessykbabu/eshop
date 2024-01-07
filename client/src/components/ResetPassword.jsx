@@ -88,11 +88,11 @@ console.log("response",response)
     <>
       <div className="lgfrm">
         <div
-          className="container mx-auto col-sm-12 col-md-12 col-lg-5 justify-content-center"
+          className="container mx-auto col-sm-12 col-md-12 col-lg-5 justify-content-center mb-3"
         >
           <h1
-            className="m-5"
-            style={{ color: "gray", fontSize: "30px", textAlign: "center" }}
+            className="m-3"
+            style={{ color: "gray", fontSize: "20px", textAlign: "center",fontWeight:"bold" }}
           >
             Reset  Password
           </h1>

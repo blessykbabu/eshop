@@ -8,6 +8,7 @@ const {
 } = require("../utils/response-handler.js");
 
 const Regvalidator = require("../validation/RegValidator.js");
+const Productvalidator=require("../validation/productValidator.js");
 const jwt = require("jsonwebtoken");
 
 const { sign } = jwt;
@@ -83,6 +84,7 @@ async function newUser(req, res) {
 
 async function newProduct(req, res) {
   try {
+    console.log("reqst body:",req.body);
     let { name, category,price, quantity,pimage } = req.body;
     let validationResult = await Productvalidator(req.body);
     console.log("valiadtionResult::", validationResult);
@@ -129,8 +131,57 @@ async function newProduct(req, res) {
     return res.status(500).send(response);
   }
 }
+async function Fetch_products(req,res){
+  try {
+    let count = Number(await products.countDocuments({ deleted: { $ne: true } }));
+    const pageNumber = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || count;
+    let info = await products
+      .find({ deleted: { $ne: true } })
+      .sort({ _id: -1 })
+      .skip(pageSize * (pageNumber - 1))
+      .limit(pageSize);
+
+    // return res.json(info);
+    if (info) {
+      let total_pages = Math.ceil(count / pageSize);
+      let data = {
+        count: count,
+        total_pages: total_pages,
+        currentPages: pageNumber,
+        datas: info,
+      };
+      let response = successFunction({
+        statusCode: 200,
+        data: data,
+        message: "Products Details Recieved",
+      });
+      return res.status(200).send(response);
+    } else {
+      let response = errorFunction({
+        statusCode: 404,
+        message: "Data not found",
+      });
+      return res.status(404).send(response);
+    }
+  } catch (error) {
+    console.log(error);
+    // return res.status(500).send("error occured");
+    let response = errorFunction({
+      statusCode: 500,
+      message: "Error occured",
+    });
+    return res.status(500).send(response);
+  }
+}
+
+async function Profile(req,res){
+ 
+}
 
 module.exports={
 newUser,
-newProduct
+newProduct,
+Profile,
+Fetch_products
 }

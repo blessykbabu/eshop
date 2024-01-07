@@ -1,11 +1,23 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import icon1 from "../image/icon1.png";
-export default function Navbar(){
-    return(
-        <>
+import icon2 from "../image/icon2.png";
+import icon3 from "../image/icon3.png";
+export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
- <nav className="navbar navbar-expand-lg" style={{backgroundColor:"lightblue"}}>
+  useEffect(() => {
+    // Implement your logic to check if the user is logged in
+    // For example, you can check if there is a token in localStorage
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(token);
+  }, []);
+  return (
+    <>
+      <nav
+        className="navbar navbar-expand-lg"
+        style={{ backgroundColor: "lightblue" }}
+      >
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -21,9 +33,11 @@ export default function Navbar(){
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item m-4" style={{ color: "white" }}>
-               Free Shipping
+                <img className="m-2" src={icon2} height={18} />
+                Free Shipping
               </li>
               <li className="nav-item m-4" style={{ color: "white" }}>
+                <img className="m-2" src={icon3} height={18} />
                 call us 7898-4444-800
               </li>
             </ul>
@@ -31,9 +45,8 @@ export default function Navbar(){
         </div>
       </nav>
       {/* top navbar close */}
-       <nav className="navbar bg-light">
+      <nav className="navbar bg-light">
         <div className="container-fluid d-flex justify-content-between align-items-center">
-   
           <button
             className="navbar-toggler start"
             type="button"
@@ -43,7 +56,18 @@ export default function Navbar(){
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <Link to="/" style={{textDecoration:"none",fontFamily:"sans-serif",color:"gray",fontSize:"30px",fontWeight:'bolder'}}>Ezy Mart</Link>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              fontFamily: "sans-serif",
+              color: "gray",
+              fontSize: "30px",
+              fontWeight: "bolder",
+            }}
+          >
+            Ezy Mart
+          </Link>
           <div
             className="offcanvas offcanvas-start"
             tabIndex={-1}
@@ -123,17 +147,17 @@ export default function Navbar(){
             />
           </form>
           <div>
-          <ul style={{listStyle:"none"}}>
-            <li>
-            <img
-                    src={icon1}
-                    height={30}
-                    className="d-block w-100"
-                    alt="..."
-                  /> 
-            </li>
-          </ul>
-        </div>
+            <ul style={{ listStyle: "none" }}>
+              <li>
+                <img
+                  src={icon1}
+                  height={30}
+                  className="d-block w-100"
+                  alt="..."
+                />
+              </li>
+            </ul>
+          </div>
           <div className="btn-group">
             <button
               className="btn btn-Info dropdown-toggle"
@@ -160,35 +184,49 @@ export default function Navbar(){
             </ul>
           </div>
           <div>
-          <ul style={{listStyle:"none"}}>
-            <li><Link to="/shop" style={{textDecoration:"none",color:"black"}}>Shop
-            </Link>
-            </li>
-          </ul>
-        </div>
-          <div className="btn-group">
-            <button
-              className="btn btn-Info dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              data-bs-auto-close="inside"
-              aria-expanded="false"
-            >
-              Welcome
-            </button>
-            <ul className="dropdown-menu">
+            <ul style={{ listStyle: "none" }}>
               <li>
-                <Link to="/registration" className="dropdown-item">Sign Up</Link>
+                <Link
+                  to="/shop"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Shop
+                </Link>
               </li>
-              <li>
-                <Link  to="/login" className="dropdown-item">Sign In</Link>
-              </li>
-             
             </ul>
           </div>
-          
+          {isLoggedIn ? (
+            <div>Welcome, Username!</div>
+          ) : (
+            <div className="btn-group">
+              <button
+                className="btn btn-Info dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="inside"
+                aria-expanded="false"
+              >
+                Welcome
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link to="/registration" className="dropdown-item">
+                    Sign Up
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/login" className="dropdown-item">
+                    Sign In
+                  </Link>
+                </li>
+                {/* {!isLoggedIn && <Link to="/login" className="dropdown-item">Sign In</Link>}
+            {!isLoggedIn && <Link to="/registration" className="dropdown-item">Sign Up</Link>} */}
+              </ul>
+            </div>
+          )
+          }
         </div>
-      </nav> 
-        </>
-    )
+      </nav>
+    </>
+  );
 }

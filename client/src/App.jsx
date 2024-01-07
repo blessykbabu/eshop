@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import Seller from './components/Selller';
 import { Logout } from './components/Logout';
 import Products from './components/Product';
+import Profile from './components/profile';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -30,6 +31,8 @@ function App() {
 
           <Route path="/admin/dashboard/*" element={<Admin />} />
           <Route path="/user/*" element={<UserComponent/>} />
+          {/* <Route path="/user/profile" element={<Profile/>} /> */}
+
           <Route path="/seller/*" element={<Seller/>} />
 
           <Route path="/add/product" element={<NewProduct/>} />

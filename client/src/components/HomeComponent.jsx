@@ -183,7 +183,7 @@ export default function HomeComponent() {
 
       <div className="container">
         <div className="row">
-          <div className="col">
+          <div className="col-sm-4">
             <div className="row">
               <img src={n1} height={290} className="d-block w-100" alt="..." />
             </div>
@@ -197,7 +197,7 @@ export default function HomeComponent() {
             </div>
           </div>
           {/* carousal */}
-          <div className="col">
+          <div className="col-sm-4">
             <div
               id="carouselExampleFade"
               className="carousel slide carousel-fade"
@@ -255,7 +255,7 @@ export default function HomeComponent() {
               </button>
             </div>
           </div>
-          <div className="col">
+          <div className="col-sm-4">
             <div className="row">
               <img src={n2} height={290} className="d-block w-100" alt="..." />
             </div>
