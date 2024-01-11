@@ -1,0 +1,14 @@
+.porder{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* .prodata{
+    border:2px solid gray;
+} */
+/* .prodata table{
+    height:75vh;
+} */
+.prodata table td{
+padding: 15px;
+}

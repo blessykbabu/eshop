@@ -3,7 +3,7 @@ export default function(){
     return(
         <>
         <div>
-        <table className="table border ">
+        <table className="table border border-white ">
               <tbody>
                 <tr>
                   <th scope="row"></th>

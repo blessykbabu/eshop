@@ -33,6 +33,10 @@ export default function NewProduct() {
     const quantity = e.target.value;
     setFieldValue("quantity", quantity);
   };
+  const handleDescriptionChange = (e, setFieldValue) => {
+    const description = e.target.value;
+    setFieldValue("description", description);
+  };
   const handleImageChange = (e, setFieldValue) => {
     const file = e.target.files[0];
     convertToBase64(file)
@@ -73,7 +77,7 @@ export default function NewProduct() {
       const token = localStorage.getItem("token");
       const userId = localStorage.getItem("_id"); 
       console.log("user id:",userId)
-
+      console.log("values in product:",values);
       // const img = await convertToBase64(e.target[6].files[0]);
       const response = await axios.post(
         "http://localhost:3000/addproduct",
@@ -86,7 +90,7 @@ export default function NewProduct() {
           },
         }
       );
-
+      
       console.log("data Submitted", response.data);
 
       if (response.data.error) {
@@ -99,6 +103,7 @@ export default function NewProduct() {
         setServerSuccess(true);
         setvalidationMsg(response.data.message);
       }
+  
       resetForm();
     } catch (error) {
       console.error("Not Submitted", error);
@@ -117,6 +122,7 @@ export default function NewProduct() {
     category: "",
     price: "",
     quantity: "",
+    description:"",
     pimage: "",
   };
   return (
@@ -129,8 +135,10 @@ export default function NewProduct() {
             <h3 style={{ textAlign: "center", padding: 20, color: "gray" }}>
               Prduct Entry
             </h3>
-            <div className="regfrm">
-              <div className="container mx-auto col-sm-12 col-md-12 col-lg-3">
+            <div className="regfrm mb-2">
+
+              {/* col-sm-12 col-md-12 col-lg-3 */}
+              <div className="container mx-auto ">
                 <Formik
                   initialValues={initialValues}
                   onSubmit={handleSubmit}
@@ -143,8 +151,8 @@ export default function NewProduct() {
 
                     price: number().required("Required"),
                     quantity: number().required("Required"),
-
-                    // image:require("Required"),
+                    description: string().required("Required"),
+                    // image:string().required("Required")
                   })}
                 >
                   {({
@@ -282,6 +290,37 @@ export default function NewProduct() {
                             )}
                           </label>
                         </div>
+
+
+                        <div
+                          className="mb-3"
+                          style={{ padding: 10, color: "red" }}
+                        >
+                          <label
+                            htmlFor="description"
+                            className="form-label"
+                            style={{ color: "black" }}
+                          >
+                            Description
+                            <textarea
+                              id="description"
+                              name="description"
+                              className="form-control"
+                              onChange={(e) =>
+                                handleDescriptionChange(e, setFieldValue)
+                              }
+                            />
+                            <ErrorMessage
+                              name="description"
+                              component="div"
+                              style={{ color: "red" }}
+                            />
+                            {backendError.description_empty && (
+                              <div>{backendError.description_empty}</div>
+                            )}
+                          </label>
+                        </div>
+
 
                         <div
                           className="mb-3"

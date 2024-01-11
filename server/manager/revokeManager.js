@@ -20,6 +20,7 @@ exports.revoke = async function (token) {
                 console.log("save token:",saveToken)
 
                 if(saveToken) {
+                    
                      console.log("logout")
                     resolve({"status" : 200, "message" : "Logout successful"});
                 }else {

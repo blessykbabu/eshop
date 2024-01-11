@@ -14,7 +14,10 @@ import Footer from "./components/Footer";
 import Seller from './components/Selller';
 import { Logout } from './components/Logout';
 import Products from './components/Product';
-import Profile from './components/profile';
+// import Profile from './components/profile';
+import Product_Details from './components/Product_Deatails';
+import Cart from './components/Cart';
+import Order from './components/Order';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -35,8 +38,12 @@ function App() {
 
           <Route path="/seller/*" element={<Seller/>} />
 
-          <Route path="/add/product" element={<NewProduct/>} />
+          {/* <Route path="/add/product" element={<NewProduct/>} /> */}
           <Route path="/shop" element={<Products/>} />
+          <Route path="/order/product/:id" element={<Product_Details/>} />
+          <Route path="/cart/:id" element={<Cart/>}/>
+          <Route path="/order/:id" element={<Order/>}/>
+
 
 
           {/* <Route path="/forgot/password" element={<ResetPassword/>} /> */}

@@ -87,8 +87,9 @@ console.log("response",response)
   return (
     <>
       <div className="lgfrm">
+        {/* col-sm-12 col-md-12 col-lg-5 */}
         <div
-          className="container mx-auto col-sm-12 col-md-12 col-lg-5 justify-content-center mb-3"
+          className="container mx-auto  justify-content-center mb-3"
         >
           <h1
             className="m-3"

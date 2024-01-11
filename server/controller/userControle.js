@@ -1,6 +1,10 @@
 const users = require("../db/models/users.js");
+const path=require("path");
 const usertypes=require('../db/models/usertypes.js');
+const carts=require("../db/models/cart.js");
+const orders=require("../db/models/orders.js");
 const products=require('../db/models/products.js');
+const fileUpload=require("../utils/file-uploads.js").fileUpload;
 const bcrypt=require('bcrypt');
 const {
   successFunction,
@@ -84,21 +88,29 @@ async function newUser(req, res) {
 
 async function newProduct(req, res) {
   try {
-    console.log("reqst body:",req.body);
-    let { name, category,price, quantity,pimage } = req.body;
+    // console.log("reqst body:",req.body);
+    let { name, category,price, quantity,description,pimage } = req.body;
+   
+    let p_image;
+    if (pimage ) {
+      p_image = await fileUpload(pimage, "products");
+    } else   {
+    p_image="no_image;"
+    }
     let validationResult = await Productvalidator(req.body);
     console.log("valiadtionResult::", validationResult);
     if (validationResult.isValid) {
 
-      
     
+
      
       let result = await products.create({
         name,
         category,
         price,
         quantity,
-        pimage,
+        description,
+        pimage:p_image,
       });
       if (result) {
         let response = successFunction({
@@ -175,13 +187,290 @@ async function Fetch_products(req,res){
   }
 }
 
-async function Profile(req,res){
+async function FetchOne_Product(req,res){
+
+try {
+    let id = req.params.id;
+    // console.log(id);
+   
+    let result = await products
+      .findOne({
+        $and: [{ _id: id }, { deleted: { $ne: true } }],
+      })
+     
+
  
+    if (result) {
+      let response = successFunction({
+        statusCode: 200,
+        data: result,
+        message: "Product Recieaved",
+      });
+      return res.status(200).send(response);
+    } else {
+      let response = errorFunction({
+        statusCode: 404,
+        message: "Product not found",
+      });
+      return res.status(404).send(response);
+    }
+
+  } catch (error) {
+    console.log(error);
+
+    let response = errorFunction({
+      statusCode: 404,
+      message: "Product not found",
+    });
+    return res.status(404).send(response);
+  }
 }
+
+
+
+async function addCart(req, res) {
+  try {
+    console.log("reached the cart  controller");
+    // console.log("reqst body:",req.body);
+    let pid = req.query.pid;
+    let uid=req.query.uid;
+    console.log("user id:",uid)
+    // let pid=req.query._id;
+    console.log("pid",pid);
+
+    // let validationResult = await Productvalidator(req.body);
+    // console.log("valiadtionResult::", validationResult);
+  
+      let result = await carts.create({
+        pid:pid,
+        uid:uid
+       
+      });
+      if (result) {
+        let response = successFunction({
+          statusCode: 200,
+          data: result,
+          message: "Product add successful",
+        });
+        return res.status(200).send(response);
+      } else {
+        let response = errorFunction({
+          statusCode: 400,
+          message: " Failed",
+        });
+        return res.status(400).send(response);
+      }
+  
+  } catch (error) {
+    console.log(error);
+    let response = errorFunction({
+      statusCode: 500,
+      message: "Error",
+    });
+    return res.status(500).send(response);
+  }
+}
+async function userProfile(req,res){
+ 
+  try {
+    // console.log("reached the userprofile")
+    let user = req.user;
+    // console.log("user:",user)
+    let userDetails = await users.findOne({ _id: user.user_id },{ password: 0 });
+    // console.log("userdetails:",userDetails)
+    if (userDetails) {
+      let response = successFunction({
+        statusCode: 200,
+        data: userDetails,
+        message: "user data Recieaved",
+      });
+      return res.status(200).send(response);
+    } else {
+      let response = errorFunction({
+        statusCode: 404,
+        message: "user not found",
+      });
+      return res.status(404).send(response);
+    }
+
+  } catch (error) {
+    console.log(error);
+
+    let response = errorFunction({
+      statusCode: 404,
+      message: "user not found",
+    });
+    return res.status(404).send(response);
+  }
+}
+async function fetchCart(req,res){
+  try {
+    console.log("reach fetch cart");
+      let uid=req.params.id;
+      console.log("uid in cart controler:",uid)
+    let result = await carts
+      .find({
+        $and: [{ uid }, { deleted: { $ne: true } }],
+      })
+      .populate('pid')
+    //  console.log('cart result',result)
+
+ 
+    if (result) {
+      let response = successFunction({
+        statusCode: 200,
+        data: result,
+        message: "Product Recieaved",
+      });
+      return res.status(200).send(response);
+    } else {
+      let response = errorFunction({
+        statusCode: 404,
+        message: "Product not found",
+      });
+      return res.status(404).send(response);
+    }
+
+  } catch (error) {
+    console.log(error);
+
+    let response = errorFunction({
+      statusCode: 404,
+      message: "Product not found",
+    });
+    return res.status(404).send(response);
+  }
+}
+
+async function addOrder(req, res) {
+  try {
+    console.log("reached the order  controller");
+    // console.log("reqst body:",req.body);
+    let pid = req.query.pid;
+    let uid=req.query.uid;
+    console.log("user id:",uid)
+    // let pid=req.query._id;
+    console.log("pid",pid);
+
+    // let validationResult = await Productvalidator(req.body);
+    // console.log("valiadtionResult::", validationResult);
+  
+      let result = await orders.create({
+        pid:pid,
+        uid:uid
+       
+      });
+      if (result) {
+        let response = successFunction({
+          statusCode: 200,
+          data: result,
+          message: "order confirmed",
+        });
+        return res.status(200).send(response);
+      } else {
+        let response = errorFunction({
+          statusCode: 400,
+          message: " Failed",
+        });
+        return res.status(400).send(response);
+      }
+  
+  } catch (error) {
+    console.log(error);
+    let response = errorFunction({
+      statusCode: 500,
+      message: "Error",
+    });
+    return res.status(500).send(response);
+  }
+}
+
+async function fetchOrder(req,res){
+  try {
+    // console.log("reach fetch order");
+      let uid=req.params.id;
+      // console.log("uid in fetch-order controler:",uid)
+    let result = await orders
+      .find({
+        $and: [{ uid }, { deleted: { $ne: true } }],
+      })
+      .populate('pid')
+    //  console.log('cart result',result)
+
+ 
+    if (result) {
+      let response = successFunction({
+        statusCode: 200,
+        data: result,
+        message: "Product Recieaved",
+      });
+      return res.status(200).send(response);
+    } else {
+      let response = errorFunction({
+        statusCode: 404,
+        message: "Product not found",
+      });
+      return res.status(404).send(response);
+    }
+
+  } catch (error) {
+    console.log(error);
+
+    let response = errorFunction({
+      statusCode: 404,
+      message: "Product not found",
+    });
+    return res.status(404).send(response);
+  }
+}
+
+async function deleteCart(req,res){
+  try {
+    console.log("reach delete cart");
+      let pid=req.params.id;
+      console.log("pid in delete cart:",pid)
+    let result = await carts
+      .deleteOne({pid:pid})
+      .populate('pid')
+    //  console.log('cart result',result)
+
+ 
+    if (result) {
+      let response = successFunction({
+        statusCode: 200,
+        data: result,
+        message: "Product deleted",
+      });
+      return res.status(200).send(response);
+    } else {
+      let response = errorFunction({
+        statusCode: 404,
+        message: "Product not found",
+      });
+      return res.status(404).send(response);
+    }
+
+  } catch (error) {
+    console.log(error);
+
+    let response = errorFunction({
+      statusCode: 404,
+      message: "Product not found",
+    });
+    return res.status(404).send(response);
+  }
+}
+
 
 module.exports={
 newUser,
 newProduct,
-Profile,
-Fetch_products
+userProfile,
+Fetch_products,
+FetchOne_Product,
+addCart,
+fetchCart,
+addOrder,
+fetchOrder,
+deleteCart
 }

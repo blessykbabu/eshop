@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string, number } from "yup";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {  useNavigate,Link } from "react-router-dom";
 // import SuccessComponent from "./SuccessComponent";
 // import ErrorComponent from "./ErrorComponent";
@@ -16,6 +17,8 @@ export default function AdminLogin() {
   const [serverError, setServeError] = useState("");
   const [validationMsg, setvalidationMsg] = useState("");
   const [backendError, setbackendError] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
   const initialValues = {
     email: "",
@@ -66,7 +69,9 @@ export default function AdminLogin() {
       console.log("error",error)
     } 
   };
- 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <>
@@ -148,12 +153,15 @@ export default function AdminLogin() {
                            Password
                        
                          <Field
-                           type="password"
+                           type={showPassword ? "text":"password"}
                            id="password"
                            name="password"
                            // placeholder="Name"
                            className="form-control"
                          />
+                          <span onClick={togglePasswordVisibility}>
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </span>
                          <ErrorMessage
                            name="password"
                            component="div"

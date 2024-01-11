@@ -15,14 +15,14 @@ exports.login = async function (req, res) {
       let email=req.body.email;
       let password=req.body.password;
       // let {email,password}=req.body;
-      console.log("email and password:",email,password)
+      // console.log("email and password:",email,password)
   
       if(email && password){
         let user=await users.findOne({
           $and:[{email:email}],
         })
         .populate("usertype")
-        console.log("email:",email)
+        // console.log("email:",email)
         // console.log("usertype:",usertype)
       
         // let user = await users.findOne({ email:email }).populate("usertype");
@@ -30,7 +30,7 @@ exports.login = async function (req, res) {
         // console.log("user",user)
         
   // let user = await users.findOne({ email }).populate('usertype');
-       console.log("user", user);
+      //  console.log("user", user);
   
         if(!user){
           let response=errorFunction({statusCode:400,message:"User not found"})
@@ -46,7 +46,8 @@ exports.login = async function (req, res) {
             console.log("auth",auth);
             if(auth===true){
               let access_token=jwt.sign(
-                {user_id:user._id},
+                { username: user.name,
+                  user_id:user._id},
                 process.env.PRIVATE_KEY,
                 {expiresIn:"10d"}
               );

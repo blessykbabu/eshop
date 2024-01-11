@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 
 export default function Products() {
+  const navigate=useNavigate();
   const [lists, setLists] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -44,7 +45,15 @@ export default function Products() {
     const rowProducts = lists.slice(i, i + 4);
     productsInRows.push(rowProducts);
   }
-
+  const handleOrderClick = (list) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate(`/order/product/${list._id}`);
+    } else {
+      // Redirect to the login page if there's no token
+      navigate("/login");
+    }
+  };
   return (
     <>
       <div>
@@ -55,22 +64,47 @@ export default function Products() {
             {productsInRows.map((rowProducts, rowIndex) => (
               <div className="row" key={rowIndex}>
                 {rowProducts.map((list, index) => (
-                  <div className="col" key={index}>
-                    <div className="card" style={{ width: "18rem", margin: "10px" }}>
-                      <img src={list.pimage} className="card-img-top" alt="..." />
+                  <div className="col-md-3" key={index}>
+                  <div className="card mb-3">
+                      {/* <img src={`http://localhost:3000/uploads/products/}`} height={300} className="card-img-top" alt="..." /> */}
+                       <img src={list.pimage} height={300}/>
                       <div className="card-body">
                         <h5 className="card-title">{list.name}</h5>
-                        <p className="card-text">Rs: {list.price}</p>
-                        <a href="#" className="btn btn-primary">
+                        <p className="card-text"><span className="text-warning">$</span>{list.price}</p>
+                       
+                      
+                        <button
+                          onClick={() => handleOrderClick(list)}
+                          className="btn btn-primary"
+                        >
                           Order
-                        </a>
+                        </button>
+                           
+
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
+              
             ))}
+                   <nav className="d-flex justify-content-center" aria-label="Page navigation">
+            <ul className="pagination">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <li key={index + 1} className={`page-item ${currentPage === index + 1 ? "active" : ""}`}>
+                  <Link
+                    // to={`?page=${index + 1}`}
+                    className="page-link"
+                    onClick={() => (setCurrentPage(index + 1),setLoading(true))}
+                  >
+                    {index + 1}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
           </div>
+          
         )}
       </div>
     </>

@@ -1,17 +1,47 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./navbar.css";
 import { Link } from "react-router-dom";
 import icon1 from "../image/icon1.png";
 import icon2 from "../image/icon2.png";
 import icon3 from "../image/icon3.png";
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [userData, setuserData] = useState({});
   useEffect(() => {
     // Implement your logic to check if the user is logged in
     // For example, you can check if there is a token in localStorage
     const token = localStorage.getItem("token");
-    setIsLoggedIn(token);
+    setIsLoggedIn(!!token);
+    getprofile();
   }, []);
+  const getprofile = async () => {
+    try {
+      console.log("call getprofile");
+      const token = localStorage.getItem("token");
+      console.log("token:", token);
+
+      const response = await axios.get(
+        "http://localhost:3000/user/profile",
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setuserData(response.data.data);
+    } catch {
+      if (error.response && error.response.status === 404) {
+        //  not found error
+        console.log("user not  found");
+      } else {
+        console.error("Error fetching  details:", error);
+      }
+    }
+  };
+  const uid = userData._id;
+  console.log("user id in navbar:", uid);
   return (
     <>
       <nav
@@ -30,6 +60,9 @@ export default function Navbar() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+          <div className="s_logonav  ">
+            <h3 >EZY</h3>
+          </div>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item m-4" style={{ color: "white" }}>
@@ -196,7 +229,7 @@ export default function Navbar() {
             </ul>
           </div>
           {isLoggedIn ? (
-            <div>Welcome, Username!</div>
+            <div>Welcome, {userData.name}</div>
           ) : (
             <div className="btn-group">
               <button
@@ -223,8 +256,7 @@ export default function Navbar() {
             {!isLoggedIn && <Link to="/registration" className="dropdown-item">Sign Up</Link>} */}
               </ul>
             </div>
-          )
-          }
+          )}
         </div>
       </nav>
     </>

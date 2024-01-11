@@ -14,6 +14,8 @@ data.price=!isEmpty(data.price)?data.price:"";
 
 data.quantity=!isEmpty(data.quantity)?data.quantity:"";
 
+data.description=!isEmpty(data.description)?data.description:"";
+
 data.pimage=!isEmpty(data.pimage)?data.pimage:"";
 
 
@@ -45,6 +47,10 @@ if(validator.isEmpty(data.price)){
 
 if(validator.isEmpty(data.quantity)){
     errors.quantity_empty="quantity required"
+}
+
+if(validator.isEmpty(data.description)){
+    errors.description_empty="description required"
 }
 
 if(validator.isEmpty(data.pimage)){

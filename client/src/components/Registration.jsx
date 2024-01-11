@@ -26,6 +26,7 @@ export default function Registration() {
     phone: "",
     district: "",
     category:"",
+   
     password:""
     
   };
