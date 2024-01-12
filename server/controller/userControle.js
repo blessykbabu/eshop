@@ -4,7 +4,6 @@ const usertypes=require('../db/models/usertypes.js');
 const carts=require("../db/models/cart.js");
 const orders=require("../db/models/orders.js");
 const products=require('../db/models/products.js');
-const fileUpload=require("../utils/file-uploads.js").fileUpload;
 const bcrypt=require('bcrypt');
 const {
   successFunction,
@@ -12,7 +11,6 @@ const {
 } = require("../utils/response-handler.js");
 
 const Regvalidator = require("../validation/RegValidator.js");
-const Productvalidator=require("../validation/productValidator.js");
 const jwt = require("jsonwebtoken");
 
 const { sign } = jwt;
@@ -23,7 +21,6 @@ async function newUser(req, res) {
   try {
     let { name, email, phone, district,category,password } = req.body;
     let validationResult = await Regvalidator(req.body);
-    console.log("valiadtionResult::", validationResult);
     if (validationResult.isValid) {
       let hashedPass = await bcrypt.hash(password, 10);
 
@@ -91,15 +88,6 @@ async function newProduct(req, res) {
     // console.log("reqst body:",req.body);
     let { name, category,price, quantity,description,pimage } = req.body;
    
-    let p_image;
-    if (pimage ) {
-      p_image = await fileUpload(pimage, "products");
-    } else   {
-    p_image="no_image;"
-    }
-    let validationResult = await Productvalidator(req.body);
-    console.log("valiadtionResult::", validationResult);
-    if (validationResult.isValid) {
 
     
 
@@ -110,7 +98,7 @@ async function newProduct(req, res) {
         price,
         quantity,
         description,
-        pimage:p_image,
+        pimage
       });
       if (result) {
         let response = successFunction({
@@ -126,14 +114,7 @@ async function newProduct(req, res) {
         });
         return res.status(400).send(response);
       }
-    } else {
-      let response = errorFunction({
-        statusCode: 500,
-        message: "validation failed",
-      });
-      response.error = validationResult.errors;
-      return res.status(200).send(response);
-    }
+    
   } catch (error) {
     console.log(error);
     let response = errorFunction({
@@ -303,44 +284,6 @@ async function userProfile(req,res){
     return res.status(404).send(response);
   }
 }
-async function fetchCart(req,res){
-  try {
-    console.log("reach fetch cart");
-      let uid=req.params.id;
-      console.log("uid in cart controler:",uid)
-    let result = await carts
-      .find({
-        $and: [{ uid }, { deleted: { $ne: true } }],
-      })
-      .populate('pid')
-    //  console.log('cart result',result)
-
- 
-    if (result) {
-      let response = successFunction({
-        statusCode: 200,
-        data: result,
-        message: "Product Recieaved",
-      });
-      return res.status(200).send(response);
-    } else {
-      let response = errorFunction({
-        statusCode: 404,
-        message: "Product not found",
-      });
-      return res.status(404).send(response);
-    }
-
-  } catch (error) {
-    console.log(error);
-
-    let response = errorFunction({
-      statusCode: 404,
-      message: "Product not found",
-    });
-    return res.status(404).send(response);
-  }
-}
 
 async function addOrder(req, res) {
   try {
@@ -424,42 +367,7 @@ async function fetchOrder(req,res){
   }
 }
 
-async function deleteCart(req,res){
-  try {
-    console.log("reach delete cart");
-      let pid=req.params.id;
-      console.log("pid in delete cart:",pid)
-    let result = await carts
-      .deleteOne({pid:pid})
-      .populate('pid')
-    //  console.log('cart result',result)
 
- 
-    if (result) {
-      let response = successFunction({
-        statusCode: 200,
-        data: result,
-        message: "Product deleted",
-      });
-      return res.status(200).send(response);
-    } else {
-      let response = errorFunction({
-        statusCode: 404,
-        message: "Product not found",
-      });
-      return res.status(404).send(response);
-    }
-
-  } catch (error) {
-    console.log(error);
-
-    let response = errorFunction({
-      statusCode: 404,
-      message: "Product not found",
-    });
-    return res.status(404).send(response);
-  }
-}
 
 
 module.exports={
@@ -469,8 +377,6 @@ userProfile,
 Fetch_products,
 FetchOne_Product,
 addCart,
-fetchCart,
 addOrder,
 fetchOrder,
-deleteCart
 }

@@ -16,7 +16,6 @@ import n3 from "../image/n3.jpg";
 
 import ResetPassword from "./ResetPassword";
 import Icon from "./Icon";
-import Cart from "./Cart";
 import Profile from "./profile";
 // function Profile() {
 //   return <div>Profile Component</div>;
@@ -152,7 +151,6 @@ function UserComponent() {
                       <th scope="row"></th>
                       <td className="p-4">
                         <Link
-                          to={`/order/${userData._id}`}
                           style={{ textDecoration: "none", color: "black" }}
                         >
                           Orders
@@ -165,7 +163,6 @@ function UserComponent() {
                         {/* <Link  to={`/user/cart/${userData._id}`}
                         onClick={() => handleLinkClick(<Cart/>)} */}
                         <Link
-                          to={`/cart/${userData._id}`}
                           style={{ textDecoration: "none", color: "black" }}
                         >
                           Cart
